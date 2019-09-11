@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C4C5AB4D-0ED5-44BB-A68F-D8B92F0027C4}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="CiDBioPDV.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="CiDBioPDV">
+        <MSBuild Projects="CiDBioPDV.dproj"/>
+    </Target>
+    <Target Name="CiDBioPDV:Clean">
+        <MSBuild Projects="CiDBioPDV.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CiDBioPDV:Make">
+        <MSBuild Projects="CiDBioPDV.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="CiDBioPDV"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="CiDBioPDV:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="CiDBioPDV:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
