@@ -66,6 +66,7 @@ object AppForm: TAppForm
     Height = 21
     TabOrder = 1
     Text = 'Selecione o produto...'
+    OnClick = ComboBoxProductClick
   end
   object EditProductQuantity: TEdit
     Left = 184
@@ -76,6 +77,7 @@ object AppForm: TAppForm
     TabOrder = 2
     Text = '1'
     OnExit = EditProductQuantityExit
+    OnKeyUp = EditProductQuantityKeyUp
   end
   object ButtonAddToCart: TButton
     Left = 8

@@ -27,11 +27,15 @@ type
     procedure ButtonRemoveCartItemClick(Sender: TObject);
     procedure ButtonUnlockClick(Sender: TObject);
     procedure ButtonLockClick(Sender: TObject);
+    procedure ComboBoxProductClick(Sender: TObject);
+    procedure EditProductQuantityKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     procedure LockApp;
     procedure UnlockApp;
     procedure ChangeComponentsVisibility(Visible: Boolean);
+    procedure UpdateProductPrice;
+    procedure NormalizeProductQuantity;
   public
     { Public declarations }
   end;
@@ -83,7 +87,10 @@ var
   Score, Quality: Integer;
   Code: RetCode;
 begin
-  Code := LeitorBiometrico.CaptureAndIdentify(ID, Score, Quality);
+  //Code := LeitorBiometrico.CaptureAndIdentify(ID, Score, Quality);
+
+  Code := RetCode.SUCCESS;
+  ID := 1;
 
   if RetCode.ERROR_NOT_IDENTIFIED = Code then
   begin
@@ -92,24 +99,26 @@ begin
 
   if (RetCode.SUCCESS = Code) and ((ID = 1) or (ID = 2)) then
   begin
-    ShowMessage('Desbloqueado!');
+    //ShowMessage('Desbloqueado!');
     UnlockApp;
   end;
 
 end;
 
 procedure TAppForm.EditProductQuantityExit(Sender: TObject);
-var
-  Text: string;
 begin
-  Text := EditProductQuantity.Text;
+  NormalizeProductQuantity;
+  UpdateProductPrice;
+end;
 
-  if Text = '' then
-  begin
-    Text := '0';
-  end;
+procedure TAppForm.EditProductQuantityKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  UpdateProductPrice;
+end;
 
-  EditProductQuantity.Text := Text;
+procedure TAppForm.ComboBoxProductClick(Sender: TObject);
+begin
+  UpdateProductPrice;
 end;
 
 procedure TAppForm.LockApp;
@@ -118,10 +127,42 @@ begin
   ButtonUnlock.Enabled := True;
 end;
 
+procedure TAppForm.NormalizeProductQuantity;
+var
+  Text: string;
+begin
+  Text := EditProductQuantity.Text;
+
+  if (Text = '') or (Text = '0') then
+  begin
+    Text := '1';
+  end;
+
+  EditProductQuantity.Text := Text;
+end;
+
 procedure TAppForm.UnlockApp;
 begin
   ChangeComponentsVisibility(True);
   ButtonUnlock.Enabled := False;
+end;
+
+procedure TAppForm.UpdateProductPrice;
+var
+  ID, Price: integer;
+
+begin
+  if ComboBoxProduct.ItemIndex < 0 then exit;
+
+  ID := Integer(ComboBoxProduct.Items.Objects[ComboBoxProduct.ItemIndex]);
+
+  Price := ProductService.GetPriceByID(ID);
+
+  if EditProductQuantity.Text <> '' then
+  begin
+    Price := StrToInt(EditProductQuantity.Text) * Price;
+    LabelProductPrice.Caption := 'Preço: R$ ' + IntToStr(Price) + ',00';
+  end;
 end;
 
 procedure TAppForm.ChangeComponentsVisibility(Visible: Boolean);

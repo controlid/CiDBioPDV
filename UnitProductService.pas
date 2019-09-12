@@ -13,8 +13,9 @@ TProductService = class(TObject)
   public
     constructor Create;
     procedure CreateDefaults;
-    function CreateProduct(pProductName: string; pProductPrice: integer): Integer;
+    function CreateProduct(ProductName: string; ProductPrice: integer): integer;
     function ListAll: TList;
+    function GetPriceByID(ID: integer): integer;
 
 end;
 
@@ -54,16 +55,32 @@ begin
   CreateProduct('SAT iD', 5);
 end;
 
-function TProductService.CreateProduct(pProductName: string; pProductPrice: integer): Integer;
+function TProductService.CreateProduct(ProductName: string; ProductPrice: integer): Integer;
 var
   Product: TProduct;
 begin
   Product := TProduct.Create;
   Product.ID := FProductManager.NextID;
-  Product.Name := pProductName;
-  Product.Price := pProductPrice;
+  Product.Name := ProductName;
+  Product.Price := ProductPrice;
 
   FProductManager.Add(Product);
+end;
+
+function TProductService.GetPriceByID(ID: integer): integer;
+var
+  Product: TProduct;
+begin
+  Result := 0;
+
+  for Product in FProductManager.Get do
+  begin
+    if ID = Product.ID then
+    begin
+      Result := Product.Price;
+      break;
+    end;
+  end;
 end;
 
 function TProductService.ListAll: TList;
