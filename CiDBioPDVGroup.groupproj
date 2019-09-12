@@ -6,6 +6,9 @@
         <Projects Include="CiDBioPDV.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\..\Downloads\IDBIO_SDK\example\Delphi\SCVBio.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -23,14 +26,23 @@
     <Target Name="CiDBioPDV:Make">
         <MSBuild Projects="CiDBioPDV.dproj" Targets="Make"/>
     </Target>
+    <Target Name="SCVBio">
+        <MSBuild Projects="..\..\Downloads\IDBIO_SDK\example\Delphi\SCVBio.dproj"/>
+    </Target>
+    <Target Name="SCVBio:Clean">
+        <MSBuild Projects="..\..\Downloads\IDBIO_SDK\example\Delphi\SCVBio.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SCVBio:Make">
+        <MSBuild Projects="..\..\Downloads\IDBIO_SDK\example\Delphi\SCVBio.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="CiDBioPDV"/>
+        <CallTarget Targets="CiDBioPDV;SCVBio"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="CiDBioPDV:Clean"/>
+        <CallTarget Targets="CiDBioPDV:Clean;SCVBio:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="CiDBioPDV:Make"/>
+        <CallTarget Targets="CiDBioPDV:Make;SCVBio:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

@@ -2,7 +2,11 @@ program CiDBioPDV;
 
 uses
   Vcl.Forms,
-  App in 'App.pas' {AppForm};
+  App in 'App.pas' {AppForm},
+  ControliD in 'ControliD.pas',
+  UnitProduct in 'UnitProduct.pas',
+  UnitProductManager in 'UnitProductManager.pas',
+  UnitProductService in 'UnitProductService.pas';
 
 {$R *.res}
 
