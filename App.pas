@@ -48,14 +48,23 @@ implementation
 procedure TAppForm.FormCreate(Sender: TObject);
 var
   Product: TProduct;
+  Products: TList;
+
 begin
+  LockApp;
+
   LeitorBiometrico := CIDBio.Create;
   LeitorBiometrico.Init;
 
   ProductService := TProductService.Create;
   ProductService.CreateDefaults;
 
-  LockApp;
+  Products := ProductService.ListAll;
+
+  for Product in Products do
+  begin
+    ComboBoxProduct.AddItem(Product.Name, TObject(Product.ID));
+  end;
 end;
 
 procedure TAppForm.ButtonLockClick(Sender: TObject);

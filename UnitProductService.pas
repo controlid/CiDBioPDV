@@ -2,7 +2,7 @@ unit UnitProductService;
 
 interface
 
-uses UnitProductManager, UnitProduct;
+uses UnitProductManager, UnitProduct, System.Classes;
 
 type
 
@@ -14,6 +14,7 @@ TProductService = class(TObject)
     constructor Create;
     procedure CreateDefaults;
     function CreateProduct(pProductName: string; pProductPrice: integer): Integer;
+    function ListAll: TList;
 
 end;
 
@@ -63,6 +64,11 @@ begin
   Product.Price := pProductPrice;
 
   FProductManager.Add(Product);
+end;
+
+function TProductService.ListAll: TList;
+begin
+  Result := FProductManager.Get;
 end;
 
 end.
