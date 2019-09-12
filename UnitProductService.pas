@@ -38,7 +38,19 @@ begin
   CreateProduct('iDFit 4x2', 10);
   CreateProduct('iDFlex', 10);
   CreateProduct('iDFlex IP65', 10);
-
+  CreateProduct('iDTouch', 10);
+  CreateProduct('iDBox', 10);
+  CreateProduct('iDBlock Preta', 10);
+  CreateProduct('iDBlock Inox', 10);
+  CreateProduct('iDBlock Braço Articulado', 10);
+  CreateProduct('iDBlock Balcão', 10);
+  CreateProduct('iDBlock PNE', 10);
+  CreateProduct('iDProx Compact', 10);
+  CreateProduct('iDProx Slim', 10);
+  CreateProduct('iDBio', 10);
+  CreateProduct('Print iD', 10);
+  CreateProduct('Print iD Touch', 10);
+  CreateProduct('SAT iD', 10);
 end;
 
 function TProductService.CreateProduct(pProductName: string; pProductPrice: integer): Integer;
