@@ -1,8 +1,8 @@
-unit UnitProductManager;
+unit UProductManager;
 
 interface
 
-uses System.Classes, UnitProduct;
+uses System.Classes, UProduct;
 
 type
 
@@ -16,7 +16,7 @@ TProductManager = class(TObject)
 
     constructor Create;
     procedure Add(pProduct: TProduct);
-    function Get: TList;
+    function GetAll: TList;
 
 end;
 
@@ -37,7 +37,7 @@ begin
   FNextID := FNextID + 1;
 end;
 
-function TProductManager.Get: TList;
+function TProductManager.GetAll: TList;
 begin
   Result := FProducts;
 end;

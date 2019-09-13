@@ -102,14 +102,21 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="App.pas">
-            <Form>AppForm</Form>
+        <DCCReference Include="FApp.pas">
+            <Form>FormApp</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ControliD.pas"/>
-        <DCCReference Include="UnitProduct.pas"/>
-        <DCCReference Include="UnitProductManager.pas"/>
-        <DCCReference Include="UnitProductService.pas"/>
+        <DCCReference Include="UProduct.pas"/>
+        <DCCReference Include="UProductManager.pas"/>
+        <DCCReference Include="UProductService.pas"/>
+        <DCCReference Include="UOrder.pas"/>
+        <DCCReference Include="UOrderManager.pas"/>
+        <DCCReference Include="UOrderService.pas"/>
+        <DCCReference Include="FCreateUser.pas">
+            <Form>Form2</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -627,7 +634,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>copy libcidbio.dll $(OUTPUTDIR)</PostBuildEvent>
+        <PostBuildEvent>copy libcidbio.dll $(OUTPUTDIR)</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
@@ -635,7 +642,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>copy libcidbio.dll $(OUTPUTDIR)</PostBuildEvent>
+        <PostBuildEvent>copy libcidbio.dll $(OUTPUTDIR)</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
 </Project>

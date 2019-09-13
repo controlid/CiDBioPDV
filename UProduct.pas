@@ -1,4 +1,4 @@
-unit UnitProduct;
+unit UProduct;
 
 interface
 

@@ -1,9 +1,9 @@
-object AppForm: TAppForm
+object FormApp: TFormApp
   Left = 0
   Top = 0
   Caption = 'Control iD PDV Biom'#233'trico'
-  ClientHeight = 561
-  ClientWidth = 589
+  ClientHeight = 450
+  ClientWidth = 326
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -43,7 +43,7 @@ object AppForm: TAppForm
     Height = 13
     Caption = 'Pre'#231'o: R$ 0,00'
   end
-  object LabelCartTotal: TLabel
+  object LabelTotalPrice: TLabel
     Left = 8
     Top = 351
     Width = 69
@@ -86,18 +86,19 @@ object AppForm: TAppForm
     Height = 25
     Caption = 'Adicionar ao carrinho'
     TabOrder = 3
+    OnClick = ButtonAddToCartClick
   end
-  object CheckListBox1: TCheckListBox
+  object CheckListBoxCart: TCheckListBox
     Left = 7
     Top = 184
-    Width = 162
+    Width = 312
     Height = 161
     ItemHeight = 13
     TabOrder = 4
   end
   object ButtonRemoveCartItem: TButton
     Left = 8
-    Top = 369
+    Top = 385
     Width = 129
     Height = 25
     Caption = 'Remover selecionados'
@@ -106,7 +107,7 @@ object AppForm: TAppForm
   end
   object ButtonCheckout: TButton
     Left = 8
-    Top = 400
+    Top = 416
     Width = 129
     Height = 25
     Caption = 'Finalizar a compra'
@@ -120,5 +121,13 @@ object AppForm: TAppForm
     Caption = 'Bloquear'
     TabOrder = 7
     OnClick = ButtonLockClick
+  end
+  object ButtonCreateUser: TButton
+    Left = 243
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'Cadastrar'
+    TabOrder = 8
   end
 end
