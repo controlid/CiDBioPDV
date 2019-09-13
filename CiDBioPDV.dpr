@@ -10,7 +10,13 @@ uses
   UOrder in 'UOrder.pas',
   UOrderManager in 'UOrderManager.pas',
   UOrderService in 'UOrderService.pas',
-  FCreateUser in 'FCreateUser.pas' {Form2};
+  FCreateUser in 'FCreateUser.pas' {FormCreateUser},
+  UFinger in 'UFinger.pas',
+  UUser in 'UUser.pas',
+  UUserManager in 'UUserManager.pas',
+  UUserService in 'UUserService.pas',
+  UFingerManager in 'UFingerManager.pas',
+  UFingerService in 'UFingerService.pas';
 
 {$R *.res}
 
@@ -18,6 +24,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFormApp, FormApp);
-  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TFormCreateUser, FormCreateUser);
   Application.Run;
 end.

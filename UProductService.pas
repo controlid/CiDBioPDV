@@ -66,7 +66,7 @@ var
   Product: TProduct;
 begin
   Product := TProduct.Create;
-  Product.ID := FProductManager.NextID;
+  Product.ID := FProductManager.GetNextID;
   Product.Name := ProductName;
   Product.Price := ProductPrice;
 

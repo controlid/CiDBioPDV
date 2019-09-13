@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ControliD, Vcl.StdCtrls, StrUtils,
-  Vcl.ExtCtrls, Vcl.Menus, Vcl.CheckLst, UProduct, UProductService, UOrderService, UOrder;
+  Vcl.ExtCtrls, Vcl.Menus, Vcl.CheckLst, UProduct, UProductService, UOrderService, UOrder, FCreateUser, UFingerService, UFinger, UUser;
 
 type
   TFormApp = class(TForm)
@@ -24,6 +24,7 @@ type
     LabelTotalPrice: TLabel;
     ButtonCreateUser: TButton;
     ButtonPrintTicket: TButton;
+    LabelGreeting: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure EditProductQuantityExit(Sender: TObject);
     procedure ButtonRemoveCartItemClick(Sender: TObject);
@@ -32,6 +33,8 @@ type
     procedure ComboBoxProductClick(Sender: TObject);
     procedure EditProductQuantityKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ButtonAddToCartClick(Sender: TObject);
+    procedure ButtonCreateUserClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     procedure LockApp;
@@ -56,10 +59,17 @@ var
   LeitorBiometrico: CIDBio;
   ProductService: TProductService;
   OrderService: TOrderService;
+  FingerService: TFingerService;
 
 implementation
 
 {$R *.dfm}
+
+procedure TFormApp.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  LeitorBiometrico.DeleteAllTemplates;
+  LeitorBiometrico.Terminate;
+end;
 
 procedure TFormApp.FormCreate(Sender: TObject);
 var
@@ -79,6 +89,8 @@ begin
   UpdateProductsInComboBox(Products);
 
   OrderService := TOrderService.Create;
+
+  FingerService := TFingerService.Create;
 end;
 
 function TFormApp.GetIDFromSelectedProduct: integer;
@@ -145,6 +157,18 @@ begin
   UpdateTotalPrice;
 end;
 
+procedure TFormApp.ButtonCreateUserClick(Sender: TObject);
+begin
+  with TFormCreateUser.Create(nil) do
+  begin
+    try
+      ShowModal;
+    finally
+      Free
+    end;
+  end;
+end;
+
 procedure TFormApp.ButtonLockClick(Sender: TObject);
 begin
   LockApp;
@@ -173,23 +197,34 @@ var
   ID: Int64;
   Score, Quality: Integer;
   Code: RetCode;
-begin
-  //Code := LeitorBiometrico.CaptureAndIdentify(ID, Score, Quality);
+  Finger: TFinger;
+  UserID: integer;
+  User: TUser;
 
-  Code := RetCode.SUCCESS;
-  ID := 1;
+begin
+  Code := LeitorBiometrico.CaptureAndIdentify(ID, Score, Quality);
 
   if RetCode.ERROR_NOT_IDENTIFIED = Code then
   begin
     ShowMessage('Não identificado, tente novamnete...');
+    exit;
   end;
 
-  if (RetCode.SUCCESS = Code) and ((ID = 1) or (ID = 2)) then
+  Finger := FingerService.IdentifyByID(ID);
+
+  if Finger = nil then
   begin
-    //ShowMessage('Desbloqueado!');
-    UnlockApp;
+    ShowMessage('Não identificado, tente novamnete...');
+    exit;
   end;
 
+  UserID := Finger.UserID;
+
+  User := UserService.FindByID(UserID);
+
+  LabelGreeting.Caption := 'Olá ' + User.Name + '!';
+
+  UnlockApp;
 end;
 
 procedure TFormApp.EditProductQuantityExit(Sender: TObject);

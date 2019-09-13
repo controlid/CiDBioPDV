@@ -114,9 +114,15 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCCReference Include="UOrderManager.pas"/>
         <DCCReference Include="UOrderService.pas"/>
         <DCCReference Include="FCreateUser.pas">
-            <Form>Form2</Form>
+            <Form>FormCreateUser</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="UFinger.pas"/>
+        <DCCReference Include="UUser.pas"/>
+        <DCCReference Include="UUserManager.pas"/>
+        <DCCReference Include="UUserService.pas"/>
+        <DCCReference Include="UFingerManager.pas"/>
+        <DCCReference Include="UFingerService.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

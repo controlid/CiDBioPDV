@@ -1,9 +1,10 @@
 object FormApp: TFormApp
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'Control iD PDV Biom'#233'trico'
-  ClientHeight = 450
-  ClientWidth = 391
+  ClientHeight = 460
+  ClientWidth = 401
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,19 +13,20 @@ object FormApp: TFormApp
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object LabelProduct: TLabel
     Left = 8
-    Top = 61
+    Top = 77
     Width = 38
     Height = 13
     Caption = 'Produto'
   end
   object LabelProductQuantity: TLabel
     Left = 184
-    Top = 61
+    Top = 77
     Width = 22
     Height = 13
     Caption = 'Qtd.'
@@ -38,7 +40,7 @@ object FormApp: TFormApp
   end
   object LabelProductPrice: TLabel
     Left = 247
-    Top = 83
+    Top = 99
     Width = 72
     Height = 13
     Caption = 'Pre'#231'o: R$ 0,00'
@@ -49,6 +51,12 @@ object FormApp: TFormApp
     Width = 69
     Height = 13
     Caption = 'Total: R$ 0,00'
+  end
+  object LabelGreeting: TLabel
+    Left = 8
+    Top = 48
+    Width = 3
+    Height = 13
   end
   object ButtonUnlock: TButton
     Left = 89
@@ -61,7 +69,7 @@ object FormApp: TFormApp
   end
   object ComboBoxProduct: TComboBox
     Left = 8
-    Top = 80
+    Top = 96
     Width = 161
     Height = 21
     TabOrder = 1
@@ -70,7 +78,7 @@ object FormApp: TFormApp
   end
   object EditProductQuantity: TEdit
     Left = 184
-    Top = 80
+    Top = 96
     Width = 49
     Height = 21
     NumbersOnly = True
@@ -81,7 +89,7 @@ object FormApp: TFormApp
   end
   object ButtonAddToCart: TButton
     Left = 8
-    Top = 107
+    Top = 123
     Width = 121
     Height = 25
     Caption = 'Adicionar ao carrinho'
@@ -110,7 +118,7 @@ object FormApp: TFormApp
     Top = 416
     Width = 185
     Height = 25
-    Caption = 'Finalizar a compra'
+    Caption = 'Enviar para SAT iD'
     TabOrder = 6
   end
   object ButtonLock: TButton
@@ -129,6 +137,7 @@ object FormApp: TFormApp
     Height = 25
     Caption = 'Cadastrar'
     TabOrder = 8
+    OnClick = ButtonCreateUserClick
   end
   object ButtonPrintTicket: TButton
     Left = 199

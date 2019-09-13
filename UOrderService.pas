@@ -12,6 +12,7 @@ TOrderService = class(TObject)
 
   public
     constructor Create;
+    property Manager: TOrderManager read FOrderManager write FOrderManager;
     function CreateOrder(Product: TProduct; Quantity: integer): TOrder;
     function ListAll: TList;
     function FindByID(ID: integer): TOrder;
@@ -35,7 +36,7 @@ var
 begin
   Order := TOrder.Create;
 
-  Order.ID := FOrderManager.NextID;
+  Order.ID := FOrderManager.GetNextID;
   Order.Name := Product.Name;
   Order.Price := Quantity * Product.Price;
   Order.Quantity := Quantity;

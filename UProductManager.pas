@@ -7,18 +7,17 @@ uses System.Classes, UProduct;
 type
 
 TProductManager = class(TObject)
-  private
-    FProducts: TList;
-    FNextID: Integer;
-
   public
-    property NextID: Integer read FNextID;
-
     constructor Create;
     procedure Add(pProduct: TProduct);
     function GetAll: TList;
+    function GetNextID: Integer;
 
 end;
+
+var
+  Products: TList;
+  NextID: Integer;
 
 implementation
 
@@ -27,19 +26,32 @@ implementation
 constructor TProductManager.Create;
 begin
   inherited Create;
-  FProducts := TList.Create;
-  FNextID := 1;
+
+  if Products = nil then
+  begin
+    Products := TList.Create;
+  end;
+
+  if NextID = 0 then
+  begin
+    NextID := 1;
+  end;
 end;
 
 procedure TProductManager.Add(pProduct: TProduct);
 begin
-  FProducts.Add(pProduct);
-  FNextID := FNextID + 1;
+  Products.Add(pProduct);
 end;
 
 function TProductManager.GetAll: TList;
 begin
-  Result := FProducts;
+  Result := Products;
+end;
+
+function TProductManager.GetNextID: Integer;
+begin
+  Result := NextID;
+  NextID := NextID + 1;
 end;
 
 end.
