@@ -23,6 +23,7 @@ type
     LabelProductPrice: TLabel;
     LabelTotalPrice: TLabel;
     ButtonCreateUser: TButton;
+    ButtonPrintTicket: TButton;
     procedure FormCreate(Sender: TObject);
     procedure EditProductQuantityExit(Sender: TObject);
     procedure ButtonRemoveCartItemClick(Sender: TObject);

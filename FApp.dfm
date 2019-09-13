@@ -3,7 +3,7 @@ object FormApp: TFormApp
   Top = 0
   Caption = 'Control iD PDV Biom'#233'trico'
   ClientHeight = 450
-  ClientWidth = 326
+  ClientWidth = 391
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -91,7 +91,7 @@ object FormApp: TFormApp
   object CheckListBoxCart: TCheckListBox
     Left = 7
     Top = 184
-    Width = 312
+    Width = 376
     Height = 161
     ItemHeight = 13
     TabOrder = 4
@@ -99,7 +99,7 @@ object FormApp: TFormApp
   object ButtonRemoveCartItem: TButton
     Left = 8
     Top = 385
-    Width = 129
+    Width = 185
     Height = 25
     Caption = 'Remover selecionados'
     TabOrder = 5
@@ -108,7 +108,7 @@ object FormApp: TFormApp
   object ButtonCheckout: TButton
     Left = 8
     Top = 416
-    Width = 129
+    Width = 185
     Height = 25
     Caption = 'Finalizar a compra'
     TabOrder = 6
@@ -123,11 +123,19 @@ object FormApp: TFormApp
     OnClick = ButtonLockClick
   end
   object ButtonCreateUser: TButton
-    Left = 243
+    Left = 308
     Top = 8
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
     TabOrder = 8
+  end
+  object ButtonPrintTicket: TButton
+    Left = 199
+    Top = 417
+    Width = 184
+    Height = 25
+    Caption = 'Imprimir cupom'
+    TabOrder = 9
   end
 end
