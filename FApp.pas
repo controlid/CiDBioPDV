@@ -39,8 +39,9 @@ type
     procedure ChangeComponentsVisibility(Visible: boolean);
     procedure UpdateProductPrice;
     procedure NormalizeProductQuantity;
-    procedure AddProductsToComboBox(Products: TList);
+    procedure UpdateProductsInComboBox(Products: TList);
     procedure AddProductToComboBox(Product: TProduct);
+    procedure UpdateOrdersInComboBox;
     procedure AddOrderToComboBox(Order: TOrder);
     procedure UpdateTotalPrice;
 
@@ -68,12 +69,14 @@ var
 begin
   LockApp;
 
+  CheckListBoxCart.MultiSelect := True;
+
   LeitorBiometrico := CIDBio.Create;
   LeitorBiometrico.Init;
 
   ProductService := TProductService.Create;
   Products := ProductService.CreateDefaults;
-  AddProductsToComboBox(Products);
+  UpdateProductsInComboBox(Products);
 
   OrderService := TOrderService.Create;
 end;
@@ -102,10 +105,12 @@ begin
   CheckListBoxCart.AddItem(Order.GetDisplayName, TObject(Order.ID));
 end;
 
-procedure TFormApp.AddProductsToComboBox(Products: TList);
+procedure TFormApp.UpdateProductsInComboBox(Products: TList);
 var
   Product: TProduct;
 begin
+  ComboBoxProduct.Items.Clear;
+
   for Product in Products do
   begin
     AddProductToComboBox(Product);
@@ -134,8 +139,9 @@ begin
   Product := ProductService.FindByID(ProductID);
   Quantity := GetProductQuantity;
 
-  Order := OrderService.CreateOrder(Product, Quantity);
-  AddOrderToComboBox(Order);
+  OrderService.CreateOrder(Product, Quantity);
+  UpdateOrdersInComboBox;
+
   UpdateTotalPrice;
 end;
 
@@ -158,8 +164,7 @@ begin
     OrderService.DeleteByID(ID);
   end;
 
-  CheckListBoxCart.DeleteSelected;
-
+  UpdateOrdersInComboBox;
   UpdateTotalPrice;
 end;
 
@@ -230,6 +235,21 @@ begin
   ButtonUnlock.Enabled := False;
 end;
 
+procedure TFormApp.UpdateOrdersInComboBox;
+var
+  Order: TOrder;
+  Orders: TList;
+begin
+  CheckListBoxCart.Items.Clear;
+
+  Orders := OrderService.ListAll;
+
+  for Order in Orders do
+  begin
+    AddOrderToComboBox(Order);
+  end;
+end;
+
 procedure TFormApp.UpdateProductPrice;
 var
   ID, Price, Quantity: integer;
@@ -249,15 +269,16 @@ end;
 
 procedure TFormApp.UpdateTotalPrice;
 var
-  I, ID, Price: integer;
+  Price: integer;
   Order: TOrder;
+  Orders: TList;
 begin
   Price := 0;
 
-  for I := 0 to (CheckListBoxCart.Count - 1) do
+  Orders := OrderService.ListAll;
+
+  for Order in Orders do
   begin
-    ID := Integer(CheckListBoxCart.Items.Objects[I]);
-    Order := OrderService.FindByID(ID);
     Price := Price + Order.Price;
   end;
 
